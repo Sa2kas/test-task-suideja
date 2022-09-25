@@ -6,7 +6,10 @@ const port = process.env.PORT || 3000
 app.get('/', (req, res) => {
   res.header("Access-Control-Allow-Origin", "*");
   const text = Object.values(req.query)[0]
-  const letter = Object.values(req.query)[1]
+  const letter = Object.values(req.query)[1] || ''
+  if(!text) {
+   res.sendStatus(400)
+  }
   var result = text.split(letter.toLowerCase()).join('').split(letter.toUpperCase()).join('');
   res.send(result)
 })
